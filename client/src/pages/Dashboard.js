@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+// client/src/pages/Dashboard.js
+import React, { useState, useEffect, useCallback } from 'react'; // 1. Import useCallback
 import { Link, useNavigate } from 'react-router-dom';
 import API from '../api';
 
@@ -6,7 +7,8 @@ const Dashboard = () => {
     const [matches, setMatches] = useState([]);
     const navigate = useNavigate();
 
-    const fetchMatches = async () => {
+    // 2. Wrap the fetchMatches function in useCallback
+    const fetchMatches = useCallback(async () => {
         const token = localStorage.getItem('token');
         if (!token) {
             navigate('/login');
@@ -20,11 +22,12 @@ const Dashboard = () => {
             localStorage.removeItem('token');
             navigate('/login');
         }
-    };
+    }, [navigate]); // useCallback has its own dependency array
 
+    // 3. Now it is safe to include fetchMatches in this dependency array
     useEffect(() => {
         fetchMatches();
-    }, []);
+    }, [fetchMatches]);
 
     const handleDelete = async (matchId) => {
         if (window.confirm('Are you sure you want to delete this match? This cannot be undone.')) {
