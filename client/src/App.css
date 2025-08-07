@@ -1,0 +1,168 @@
+/* client/src/App.css */
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.App {
+  text-align: center;
+}
+
+.dashboard-title {
+  color: white;
+  background-color: rgba(0,0,0,0.6);
+  padding: 10px;
+  border-radius: 10px;
+  display: inline-block;
+}
+
+/* --- NEW STYLES for top navigation buttons --- */
+.top-right-nav button {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: white;
+  border: 1px solid white;
+  padding: 8px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.top-right-nav button:hover {
+  background-color: white;
+  color: black;
+}
+
+
+/* --- Component Styles --- */
+.form {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 30px auto;
+  gap: 15px;
+  padding: 30px;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  color: #333;
+}
+.form input, .form select {
+  padding: 12px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+.form button {
+  padding: 12px;
+  cursor: pointer;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.scoreboard {
+  background-color: rgba(0, 0, 0, 0.75);
+  border: 1px solid #444;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 500px;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+  /* --- MODIFIED: Text inside the scoreboard should be white --- */
+  color: white; 
+}
+
+.scoreboard h1 {
+  font-size: 4rem;
+  margin: 10px 0;
+}
+
+.controls button {
+  margin: 5px;
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.controls button:hover {
+    filter: brightness(1.2);
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 15px;
+  font-size: 12px;
+}
+.delete-btn:hover {
+  background-color: #c82333;
+}
+/* --- NEW STYLES for Landing Page --- */
+.landing-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.landing-title {
+    font-size: 5rem;
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    margin-bottom: 10px;
+}
+
+.landing-subtitle {
+    font-size: 1.5rem;
+    color: #f0f0f0;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+    margin-bottom: 40px;
+}
+
+.landing-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.landing-btn {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.landing-btn.primary {
+    background-color: #28a745;
+    color: white;
+}
+
+.landing-btn.secondary {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #333;
+}
+
+.landing-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
