@@ -8,15 +8,36 @@ const router = express.Router();
 // @desc    Register a new user
 router.post('/register', async (req, res) => {
     const { email, password } = req.body;
+
+    // Basic validation
+    if (!email || !password) {
+        return res.status(400).json({ msg: 'Please enter all fields' });
+    }
+
     try {
         let user = await User.findOne({ email });
         if (user) {
             return res.status(400).json({ msg: 'User already exists' });
         }
-        user = new User({ email, password }); // Storing password in plain text (INSECURE)
+
+        user = new User({ email, password });
+        
         await user.save();
-        res.status(201).json({ msg: 'User registered successfully' });
+        
+        // On successful registration, immediately log them in by providing a token
+        const payload = { user: { id: user.id } };
+        jwt.sign(
+            payload,
+            process.env.JWT_SECRET,
+            { expiresIn: '5h' },
+            (err, token) => {
+                if (err) throw err;
+                res.status(201).json({ token }); // Send token back on successful registration
+            }
+        );
+
     } catch (err) {
+        console.error("Registration Error:", err.message); // Better logging on the server
         res.status(500).send('Server Error');
     }
 });
@@ -25,21 +46,33 @@ router.post('/register', async (req, res) => {
 // @desc    Authenticate user & get token
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.status(400).json({ msg: 'Please enter all fields' });
+    }
+
     try {
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(400).json({ msg: 'Invalid credentials' });
         }
-        // Plain text password comparison (INSECURE)
+
         if (password !== user.password) {
             return res.status(400).json({ msg: 'Invalid credentials' });
         }
+
         const payload = { user: { id: user.id } };
-        jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '5h' }, (err, token) => {
-            if (err) throw err;
-            res.json({ token });
-        });
+        jwt.sign(
+            payload,
+            process.env.JWT_SECRET,
+            { expiresIn: '5h' },
+            (err, token) => {
+                if (err) throw err;
+                res.json({ token });
+            }
+        );
     } catch (err) {
+        console.error("Login Error:", err.message);
         res.status(500).send('Server Error');
     }
 });
